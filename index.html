@@ -4,24 +4,22 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>For Wingo — A Gentle Memorial</title>
-  <meta name="description" content="A heartfelt, single-file memorial for Wingo and a tribute to the impact of birds on our world." />
-
+  <meta name="description" content="A heartfelt, single-file memorial for Wingo and a detailed look at why birds matter." />
   <style>
     :root{
-      /* muted, warm tones (not too black) */
-      --bg: #f6f3ec;         /* warm paper */
-      --bg-soft: #faf8f4;    /* slightly lighter */
+      --bg: #f6f3ec;
+      --bg-soft: #faf8f4;
       --card: #ffffff;
-      --ink: #2b2b2b;        /* not pure black */
-      --muted: #6f6a5c;      /* warm gray */
-      --accent: #8c6700;     /* accent */
-      --accent-2: #c7a463;   /* soft highlight */
+      --ink: #2b2b2b;
+      --muted: #6f6a5c;
+      --accent: #8c6700; /* preferred accent family */
+      --accent-2: #c7a463;
       --ring: rgba(140,103,0,0.25);
       --shadow: 0 10px 30px rgba(0,0,0,0.06);
       --radius: 14px;
       --radius-sm: 10px;
       --space: clamp(16px, 2.5vw, 28px);
-      --maxw: 1000px;
+      --maxw: 1040px;
       --transition: 220ms ease;
     }
 
@@ -42,7 +40,7 @@
     a:hover { text-decoration: underline; }
 
     header.site {
-      position: sticky; top: 0; z-index:  5;
+      position: sticky; top: 0; z-index: 5;
       backdrop-filter: blur(6px);
       border-bottom: 1px solid rgba(0,0,0,0.06);
       background: color-mix(in oklab, var(--bg) 94%, white);
@@ -51,14 +49,9 @@
       display: flex; gap: 10px; align-items: center; justify-content: space-between;
       max-width: var(--maxw); margin: 0 auto; padding: 10px var(--space);
     }
-    .brand {
-      display: flex; align-items: center; gap: 10px; font-weight: 700;
-      letter-spacing: 0.4px;
-    }
-    .feather {
-      width: 28px; height: 28px;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.4px; }
+    .feather { width: 28px; height: 28px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+
     .tabs { display: flex; flex-wrap: wrap; gap: 8px; }
     .tabs a {
       display: inline-flex; align-items: center; gap: 8px;
@@ -67,15 +60,12 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.04);
       transition: transform var(--transition), border-color var(--transition);
     }
-    .tabs a[aria-current="page"] {
-      border-color: var(--accent);
-      outline: 2px solid var(--ring);
-    }
+    .tabs a[aria-current="page"] { border-color: var(--accent); outline: 2px solid var(--ring); }
     .tabs a:hover { transform: translateY(-1px); }
 
     main { max-width: var(--maxw); margin: 0 auto; padding: calc(var(--space) - 4px) var(--space) var(--space); }
 
-    /* “Pages” */
+    /* pages */
     section.page { display: none; animation: fade 380ms ease; }
     section.page.active { display: block; }
     @keyframes fade { from { opacity: 0; transform: translateY(4px);} to { opacity: 1; transform: none; } }
@@ -89,18 +79,18 @@
       border-radius: var(--radius);
       box-shadow: var(--shadow);
     }
-    .hero h1 {
-      margin: 0 0 6px; font-size: clamp(28px, 4.5vw, 44px); line-height: 1.15;
-      letter-spacing: 0.3px;
-    }
+    .hero h1 { margin: 0 0 6px; font-size: clamp(28px, 4.5vw, 44px); line-height: 1.15; letter-spacing: 0.3px; }
     .kicker { color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: 12px; letter-spacing: 1.5px; }
     .lede { color: var(--muted); font-size: clamp(16px, 2.3vw, 18px); max-width: 60ch; }
 
     .grid { display: grid; gap: 14px; grid-template-columns: repeat(12, 1fr); }
     .col-12 { grid-column: span 12; }
+    .col-8 { grid-column: span 8; }
     .col-6 { grid-column: span 6; }
     .col-4 { grid-column: span 4; }
-    @media (max-width: 860px){ .col-6, .col-4 { grid-column: span 12; } }
+    .col-3 { grid-column: span 3; }
+    @media (max-width: 980px){ .col-8{grid-column: span 12;} }
+    @media (max-width: 860px){ .col-6, .col-4, .col-3 { grid-column: span 12; } }
 
     .card {
       background: var(--card);
@@ -110,10 +100,10 @@
       padding: clamp(16px, 2.2vw, 22px);
     }
     .card h3 { margin: 0 0 8px; }
-    .chip {
-      display: inline-block; font-size: 12px; color: var(--muted);
-      padding: 4px 10px; border-radius: 999px; border: 1px dashed rgba(0,0,0,0.12);
-      background: var(--bg-soft);
+
+    .chip{
+      display:inline-block; font-size:12px; color:var(--muted);
+      padding:4px 10px; border-radius:999px; border:1px dashed rgba(0,0,0,0.12); background:var(--bg-soft);
     }
     .callout {
       border-left: 4px solid var(--accent);
@@ -121,23 +111,27 @@
       padding: 14px 16px; border-radius: var(--radius-sm);
       box-shadow: 0 6px 18px rgba(0,0,0,0.04) inset;
     }
+    .small { color: var(--muted); font-size: 13px; }
+    .muted { color: var(--muted); }
     .list { display: grid; gap: 10px; }
     .list li { margin-left: 1.1em; }
+    .wrap { white-space: pre-wrap; }
 
+    /* timeline & figures */
     .timeline { position: relative; padding-left: 26px; }
     .timeline::before{
-      content:""; position:absolute; left:10px; top:0; bottom:0; width:2px; background: linear-gradient(to bottom, var(--accent), transparent);
+      content:""; position:absolute; left:10px; top:0; bottom:0; width:2px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
       border-radius: 2px;
     }
     .t-item{ position: relative; margin: 0 0 18px 0; padding-left: 4px; }
     .t-item::marker { content: none; }
     .t-item::before{
       content:""; position: absolute; left:-21px; top:4px; width:12px; height:12px; border-radius:50%;
-      background: var(--card); border: 2px solid var(--accent);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+      background: var(--card); border: 2px solid var(--accent); box-shadow: 0 1px 2px rgba(0,0,0,0.06);
     }
-    .small { color: var(--muted); font-size: 13px; }
 
+    /* gallery & memories */
     .gallery { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
     .thumb {
       aspect-ratio: 4/3; width: 100%; background: var(--bg-soft);
@@ -145,8 +139,9 @@
       display: grid; place-items: center;
     }
     .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .mem { padding: 12px 14px; border: 1px solid rgba(0,0,0,0.06); border-radius: 12px; background: var(--bg-soft); }
+    .mem .by { color: var(--muted); font-size: 12px; margin-top: 6px; }
 
-    .memory-input { display: grid; gap: 10px; }
     textarea, input[type="text"] {
       width: 100%; padding: 10px 12px; border-radius: 10px;
       border: 1px solid rgba(0,0,0,0.12); background: #fff;
@@ -166,22 +161,34 @@
     button:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(140,103,0,0.2); }
     button:active { transform: translateY(0); opacity: 0.9; }
 
-    .mem { padding: 12px 14px; border: 1px solid rgba(0,0,0,0.06); border-radius: 12px; background: var(--bg-soft); }
-    .mem .by { color: var(--muted); font-size: 12px; margin-top: 6px; }
+    /* expander */
+    details.expander {
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+    details.expander > summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 12px 16px;
+      font-weight: 600;
+      outline: none;
+      user-select: none;
+    }
+    details.expander[open] > summary { border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .box {
+      padding: 16px;
+      background: var(--bg-soft);
+      border-top: 1px dashed rgba(0,0,0,0.08);
+      border-radius: 0 0 var(--radius) var(--radius);
+    }
 
+    /* footer */
     footer.site {
       margin: 40px auto; max-width: var(--maxw);
       color: var(--muted); font-size: 13px; padding: 0 var(--space) var(--space);
     }
-
-    /* utility */
-    .stack { display: grid; gap: 12px; }
-    .stack-lg { display: grid; gap: 18px; }
-    .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-    .center { text-align: center; }
-    .right { text-align: right; }
-    .muted { color: var(--muted); }
-    .wrap { white-space: pre-wrap; }
   </style>
 </head>
 
@@ -189,7 +196,6 @@
   <header class="site" role="banner">
     <nav class="nav" aria-label="Primary">
       <div class="brand" aria-label="Wingo Memorial">
-        <!-- tiny inline feather -->
         <svg class="feather" viewBox="0 0 48 48" aria-hidden="true">
           <defs>
             <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
@@ -207,8 +213,7 @@
         <a href="#home">Home</a>
         <a href="#impact">Why Birds Matter</a>
         <a href="#wingo">Wingo’s Story</a>
-        <a href="#memories">Memory Wall</a>
-        <a href="#gallery">Gallery</a>
+        <a href="#memories">Memories & Gallery</a>
         <a href="#act">Honor & Actions</a>
       </div>
     </nav>
@@ -217,119 +222,347 @@
   <main id="app">
     <!-- HOME -->
     <section class="page" id="home" data-title="Home">
-      <div class="hero stack-lg">
+      <div class="hero">
         <div class="kicker">Two Years On</div>
         <h1>For Wingo, whose small wings lifted big hearts.</h1>
         <p class="lede">
-          Today we remember a white little bird named <strong>Wingo</strong>—gentle, bright, and braver than his size.
-          He once shared a home with <em>Phoenix</em>, a green–yellow friend, and he shared his warmth with us all.
-          This space is a letter to him, and a reminder of how birds—of every color and call—quietly keep our world alive.
+          We remember <strong>Wingo</strong>—a white little bird who shared his days with Phoenix, and shared his warmth with us all.
+          This is a letter to him, and a reminder of how birds—of every color and call—quietly keep our world alive.
         </p>
-        <div class="row">
+        <div class="row" style="margin-top:10px;">
           <a class="chip" href="#wingo">Read Wingo’s story</a>
           <a class="chip" href="#impact">See birds’ impact</a>
-          <a class="chip" href="#memories">Leave a memory</a>
+          <a class="chip" href="#memories">Leave a memory / photo</a>
         </div>
       </div>
+    </section>
 
-      <div class="grid" style="margin-top: 16px;">
+    <!-- IMPACT (deep, ecological, Wallace) -->
+    <section class="page" id="impact" data-title="Why Birds Matter">
+      <div class="grid">
+        <div class="col-12">
+          <div class="card stack">
+            <h2>Why Birds Matter</h2>
+            <p class="muted">A deeper, ecological look—through science and through the eyes of naturalists like Alfred Russel Wallace.</p>
+          </div>
+        </div>
+
         <div class="col-6">
           <div class="card stack">
-            <h3>Why this matters</h3>
-            <p class="muted">
-              Birds stitch ecosystems together: they move seeds, pollinate flowers, balance insect populations,
-              and even signal the health of places we call home. When one little life touches ours, all this science
-              turns into something personal.
+            <h3>1) Seed Dispersal & Forest Renewal</h3>
+            <p>
+              Many fruit-eating birds swallow seeds and travel. Hours later, those seeds are dropped with a tiny packet of fertilizer,
+              often far from the parent tree. This spreads plant genes, rebuilds forests after storms, and keeps green corridors connected.
             </p>
+            <ul class="list">
+              <li>In fragmented habitats, birds help plants “leap” across gaps.</li>
+              <li>After disturbances, early fruiting shrubs recruit bird couriers first—kick-starting succession.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="card stack">
+            <h3>2) Pollination & Colorful Co-evolution</h3>
+            <p>
+              Nectar-feeders—like sunbirds, honeyeaters, and hummingbirds—transfer pollen as they feed. Flowers evolve shapes, colors,
+              and nectar times that match their visitors, while birds evolve beaks and tongues that fit the flowers. It’s a two-way dance.
+            </p>
+            <ul class="list">
+              <li>Where bird pollinators are common, some flowers open when birds are most active.</li>
+              <li>In windy or rainy regions, bird pollination can be more reliable than insect pollination.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="card stack">
+            <h3>3) Natural Pest Control</h3>
+            <p>
+              Insect-eating birds reduce crop pests and forest defoliators. By keeping herbivores in check, they prevent outbreaks
+              that can ripple across food webs. Fewer pests can mean fewer sprays—and more balanced ecosystems.
+            </p>
+            <ul class="list">
+              <li>Swallows, swifts, and flycatchers track insect blooms with the seasons.</li>
+              <li>Mixed flocks patrol gardens, farms, wetlands, and mangroves alike.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="card stack">
+            <h3>4) Clean-up Crews & Disease Barriers</h3>
+            <p>
+              Scavenging birds rapidly remove carcasses that could host pathogens. Where vulture numbers collapse, feral dogs and rats take over the role
+              less efficiently, raising disease risks. Healthy scavenger guilds are a public-health asset.
+            </p>
+            <ul class="list">
+              <li>Faster carcass removal → fewer breeding sites for harmful microbes.</li>
+              <li>Scavengers connect the health of wildlands with human health.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="card stack">
+            <h3>5) Nutrient Cycling & Island Fertility</h3>
+            <p>
+              Seabirds feed at sea and rest on land. Their guano concentrates marine nutrients on islands and coasts, super-charging soil fertility,
+              plant growth, and even nearshore productivity when rain washes nutrients back to the sea.
+            </p>
+            <ul class="list">
+              <li>Bird colonies act like “biological fertilizer factories.”</li>
+              <li>Rewilding seabirds can revive whole island food webs.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="card stack">
+            <h3>6) Trophic Cascades & Web Stability</h3>
+            <p>
+              Birds occupy many rungs of the food web—seed eater, insect hunter, predator, scavenger. Remove one rung and others wobble.
+              Their presence distributes energy and stabilizes interactions across habitats.
+            </p>
+            <ul class="list">
+              <li>Predatory birds can reshape prey behavior (“landscapes of fear”).</li>
+              <li>Diversity of niches → resilience to shocks like heatwaves or storms.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="card stack">
+            <h3>7) Early Signals of Change</h3>
+            <p>
+              Birds are sensitive to habitat quality. Shifts in arrival times, breeding success, or song activity can warn us about
+              changing climate, water quality, or land use—long before the problems hit people.
+            </p>
+            <ul class="list">
+              <li>Citizen science turns everyday sightings into powerful trend lines.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="card stack">
+            <h3>8) Urban Allies</h3>
+            <p>
+              In cities, birds tie people to nature. Pocket parks, trees along canals, and balcony water dishes become stepping stones.
+              They help pollinate, disperse seeds, and keep insects balanced—right where we live.
+            </p>
+            <ul class="list">
+              <li>Small habitat patches linked together can host surprising richness.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="card stack">
+            <h3>Through Wallace’s Lens</h3>
+            <p>
+              Alfred Russel Wallace, co-discoverer of natural selection, read the world by the distribution of life. In the Malay Archipelago he noticed
+              sharp boundaries in species—now called the Wallace Line—and used birds and other animals to map how geography shapes evolution.
+            </p>
+            <ul class="list">
+              <li><strong>Biogeography:</strong> bird communities change across islands, teaching us how isolation spurs diversity.</li>
+              <li><strong>Selection & display:</strong> birds of paradise show how mate choice can sculpt astonishing forms over time.</li>
+              <li><strong>Predation & mimicry:</strong> birds as predators help drive warning colors and mimicry in prey species.</li>
+            </ul>
             <div class="callout">
-              “If you listen closely, the world is full of wings.”
+              Wallace’s insight is practical today: protect connected habitats across boundaries, and life—birds included—will keep creating futures.
             </div>
           </div>
         </div>
-        <div class="col-6">
+
+        <div class="col-12">
           <div class="card stack">
-            <h3>How to use this page</h3>
+            <h3>What we can do (quick wins)</h3>
             <ul class="list">
-              <li>Use the tabs above to move between sections—everything lives in this one file.</li>
-              <li>Share a short note on the <a href="#memories">Memory Wall</a> (saved in your browser).</li>
-              <li>Add gentle photos to the <a href="#gallery">Gallery</a>.</li>
+              <li>Plant native trees/shrubs to feed both seed carriers and pollinators.</li>
+              <li>Keep windows bird-safe; tidy fishing lines and threads near canals.</li>
+              <li>Offer shallow water dishes with stones for safe perching.</li>
+              <li>Record sightings—small notes become big knowledge.</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- IMPACT -->
-    <section class="page" id="impact" data-title="Why Birds Matter">
-      <div class="grid">
-        <div class="col-12">
-          <div class="card stack-lg">
-            <h2>The Quiet Work of Wings</h2>
-            <p class="muted">Six ways birds keep life humming—visible if we pause long enough to see.</p>
-            <div class="grid">
-              <div class="col-4"><div class="card"><h3>🌱 Seed Couriers</h3><p>From forests to pocket parks, birds carry seeds across distances, re-planting green after storms and seasons.</p></div></div>
-              <div class="col-4"><div class="card"><h3>🌸 Pollination</h3><p>Some birds sip nectar and dust the world in pollen—quiet matchmakers of color and fruit.</p></div></div>
-              <div class="col-4"><div class="card"><h3>🦟 Natural Balance</h3><p>Insect-eaters keep pests in check, protecting crops, trees, and the little gardens outside our windows.</p></div></div>
-              <div class="col-4"><div class="card"><h3>🌍 Health Signals</h3><p>Where birds thrive, places are usually well. Their songs are early indicators of change—for better or worse.</p></div></div>
-              <div class="col-4"><div class="card"><h3>🎶 Culture & Joy</h3><p>Birds are metaphors, music, and art. They teach us to notice mornings—and to greet them.</p></div></div>
-              <div class="col-4"><div class="card"><h3>🧭 Human Well-being</h3><p>Watching birds reduces stress and lifts mood. A minute spent with wings can soften a heavy day.</p></div></div>
-            </div>
-            <div class="callout">
-              The world is better with birds, and we are better humans when we love them like Wingo taught us to.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- WINGO -->
+    <!-- WINGO (adapted) with dropdown full memorial text -->
     <section class="page" id="wingo" data-title="Wingo’s Story">
       <div class="grid">
         <div class="col-12">
           <div class="card stack-lg">
             <h2>Wingo</h2>
-            <p class="muted">A simple bird. A bright presence. Two years since he took his last little bow.</p>
+            <p class="muted">Adapted in English from the memorial remarks of a friend who cared for him every day.</p>
 
             <div class="grid">
-              <div class="col-6">
+              <div class="col-8">
                 <div class="stack">
                   <p>
-                    Wingo was small and white—like a hand-drawn cloud with a heartbeat. He shared a home with a
-                    green-yellow friend named Phoenix. He wasn’t loud, but he was clear. He wasn’t grand, but he was real.
-                    He was the kind of friend who made ordinary afternoons feel like occasions.
+                    Wingo was an all-white little bird who lived with <strong>Phoenix</strong>, his green-yellow partner in everything.
+                    To some he might have looked like “just a bird.” To us, he was a friend with a personality, moods, and spirit of his own.
                   </p>
                   <p>
-                    Loss, when it’s quiet, can linger in corners: an empty perch, a dish on a shelf, the way light
-                    falls on a cage. We name that light <em>memory</em>. We keep it burning. We keep flying with it.
+                    He had a voice for every moment—hungry, sleepy, curious, or simply alive. During online school he’d perch on a shoulder with Phoenix,
+                    chirping into the microphone until the teacher asked, “What’s that sound?” and the answer came: “It’s my bird.”
+                    On the desk he’d nudge pens and paper as if to say, <em>“Pay attention to me, too.”</em>
+                  </p>
+                  <p>
+                    Wingo and Phoenix were tightly bonded—eating, playing, and singing like a two-bird chorus. Sometimes Wingo would steal a bite of Phoenix’s food
+                    or act mock-offended, then reconcile minutes later. Their friendship reminded us that closeness isn’t about size or shape, but about the heart.
                   </p>
 
                   <div class="callout">
-                    “Some wings are so small you only notice them when your heart feels bigger.”
+                    He made ordinary afternoons feel like little occasions.
                   </div>
+
+                  <p>
+                    He wasn’t only playful—he was bright. In the small “IQ games” we tried with several birds, Wingo was the quickest to solve them.
+                    That cleverness and presence became a quiet engine for ideas. Long before plans were formal, he helped spark a creative phase that led
+                    from <strong>Ampion Park</strong>, <strong>Ampion.tk</strong>, and <strong>MonteSmart</strong> into the <strong>BirdOne</strong> era—named in his honor—
+                    and eventually toward <strong>TCFOC</strong> and the first <strong>Thailand Computer Festival (TCF)</strong> in January.
+                  </p>
+                  <p>
+                    For a time in the BirdOne era, we even—affectionately—made Wingo our “CEO.” It was our way of acknowledging how a tiny being could
+                    push a whole group forward. When work felt heavy—after a tough MonteSmart presentation or during stressful planning—one small chirp from him
+                    was enough to restore courage.
+                  </p>
+
+                  <h3>What he taught us</h3>
+                  <ul class="list">
+                    <li><strong>Welcome people warmly.</strong> When guests arrived, Wingo played host—calling out first and making the room feel friendly.</li>
+                    <li><strong>Live in the present.</strong> He didn’t carry tomorrow’s worries; he enjoyed the minute in front of him.</li>
+                    <li><strong>Let small lights guide big work.</strong> Big projects can start with one gentle spark.</li>
+                  </ul>
+
+                  <h3>A farewell we remember</h3>
+                  <p>
+                    In the early morning of <strong>August 24, 2023</strong>, around 4:30 a.m., a soft thud led to the sight we hoped never to see.
+                    Wingo had passed from heart failure. We buried him that morning and said goodbye. It was a hard truth—everything has an end—
+                    but endings can carry light when love remains.
+                  </p>
+
+                  <div class="callout">
+                    Wingo’s gift wasn’t only that he inspired a festival. He gave us a home full of sound—mornings that began with a smile, evenings that ended with one.
+                  </div>
+
+                  <p class="muted">
+                    Two years on, the memory, the push, and the love he left behind are still here—steady as ever.
+                  </p>
+
+                  <!-- Dropdown with full memorial text (English adaptation, boxed) -->
+                  <details class="expander" id="full-memorial">
+                    <summary>Read the full memorial text</summary>
+                    <div class="box">
+                      <div class="wrap">
+สวัสดีครับทุกคน ผม ภูวัสส์ ศรีแก้ว
+ผมเป็นเพื่อนของวิงโก้ และเป็นคนที่เลี้ยงเขาในวันที่เขายังมีชีวิตอยู่
+
+ขอขอบคุณทุกคนในคณะทำงาน TCFOC : The Thailand Computer Festival Organizing Committee ที่มาร่วมงานรำลึกถึงวิงโก้ในวันนี้ ซึ่งเป็นวันที่ผ่านมาแล้วสองปีเต็มตั้งแต่นกตัวหนึ่งที่ชื่อว่า “วิงโก้” ได้จากลาพวกเราไป
+
+วิงโก้เป็นนกตัวสีขาวล้วน อาศัยอยู่กรงเดียวกับ ฟีนิกซ์ ซึ่งเป็นนกตัวสีเขียว–เหลือง
+แม้บางคนอาจมองว่า วิงโก้ก็เป็นเพียง “นกตัวหนึ่ง” แต่สำหรับผมแล้ว เขาไม่ใช่แค่สัตว์เลี้ยงธรรมดา แต่เป็นเพื่อน ที่มีคุณค่า ที่มีเอกลักษณ์ มีอารมณ์ มีความรู้สึก และมีจิตวิญญาณ เป็นของเขาเอง
+
+เขาเป็นนกที่ส่งเสียงตลอดเวลา เวลาหิวก็ส่งเสียง เวลาง่วงก็ส่งเสียง หรือบางทีไม่มีอะไรทำก็ยังร้องไปพร้อม ๆ กับฟีนิกซ์ คู่หูของเขา... เสียงร้องเหล่านี้เป็นสิ่งที่ทำให้ชีวิตประจำวันของผมมีชีวิตชีวามากขึ้น
+
+ในช่วงที่เรียนออนไลน์ วิงโก้มักจะบินมาเกาะที่ตัวผมพร้อมกับฟีนิกซ์อยู่เสมอ บางครั้งก็ส่งเสียงร้องจิ๊บ ๆ ดังเข้ามาในไมโครโฟน มีบางครั้งที่ครูถามว่า “เสียงอะไร” แล้วผมก็ต้องตอบว่า “นกของผมเองครับ”…    วิงโก้เป็นนกที่ทำให้ห้องเรียนออนไลน์ไม่เคยเงียบจนเกินไป ในช่วงเวลาที่พวกเราถูกกักตัวอยู่แต่ในบ้าน ไม่ได้ออกไปเจอกับผู้คน และนอกจากตอนเรียนแล้ว เวลาที่ผมทำงานหรืออ่านหนังสือ วิงโก้มักจะบินมาอยู่ข้าง ๆ บางทีก็เดินบนโต๊ะ เขี่ยปากกา เขี่ยกระดาษเล่น เหมือนจะบอกว่า “มาสนใจฉันบ้าง” เขาเป็นนกที่มีนิสัยอยากรู้อยากเห็นมาก
+
+วิงโก้ยังเป็นนกที่ผูกพันกับฟีนิกซ์อย่างมาก ทั้งสองตัวแทบจะทำทุกอย่างด้วยกัน ไม่ว่าจะกินข้าวด้วยกะน เล่นด้วยกัน หรือส่งเสียงร้องดังวงประสานเสียง เสียงของทั้งคู่นั้นเหมือนเป็นเสียงดนตรีประจำบ้าน       ที่บางครั้งอาจจะดังหนวกหูบ้าง แต่ถ้าวันไหนที่บ้านเงียบเกินไป ก็รู้สึกเหมือนขาดอะไรไปบางอย่างทันที
+
+บางครั้ง วิงโก้ก็แสดงออกถึงความขี้เล่นในแบบที่ทำให้ทุกคนหัวเราะ เขาจะชอบแย่งอาหารจากฟีนิกซ์บ้าง หรือบางครั้งก็ทำท่าเหมือนจะโกรธ แต่อีกไม่กี่นาทีก็จะกลับมาอยู่ด้วยกันเหมือนเดิม ความสัมพันธ์ของทั้งคู่ เป็นเครื่องย้ำเตือนว่า “มิตรภาพจริง ๆ ไม่ได้ขึ้นอยู่กับขนาดหรือรูปร่าง แต่ขึ้นอยู่กับหัวใจ”
+
+นอกจากที่วิงโก้เป็นนกที่ขี้เล่นแล้ว เมื่อเราให้วิงโก้ทำ IQ Test สำหรับนกนั้น วิงโก้เป็นนกที่ฉลาดที่สุดในบรรดานกหลายๆ ตัว ทำให้วิงโก้ไม่ได้มีดีแค่ความน่ารัก แต่ยังมีความฉลาด ที่ทำให้เขายิ่งพิเศษขึ้นไปอีก
+
+(หยุด 4 วินาที)
+
+วิงโก้ไม่เพียงแต่เป็นเพื่อนในชีวิตประจำวันเท่านั้น แต่เขายังเป็นแรงบันดาลใจ เป็น “พลังที่อยู่เบื้องหลัง” ที่ผลักดันให้เกิดงาน TCF : Thailand Computer Festival ครั้งที่ 1 ในเดือนมกราคมที่ผ่านมา งานที่พวกเราไม่เคยคิดว่า วันหนึ่งพวกเราจะทำมันขึ้นมาได้ในที่สุด
+ 
+(หยุด 4 วินาที)
+
+บางคนอาจกำลังสงสัยว่า… “วิงโก้จากไปก่อนการวางแผนงานอีก เขาจะมีส่วนช่วยได้อย่างไร”
+
+จริงๆ แล้ว ถ้าเราย้อนกลับไปดูในช่วงก่อนการวางแผนงาน จะพบว่า บรรยากาศ ความสนุก และพลังใจที่เรามีในการสร้าง TCF ขึ้นมา ส่วนหนึ่งนั้นมาจากการที่วิงโก้เคยอยู่กับเรา เป็นกำลังใจในการเกิด ไอเดียอย่าง Ampion Park, Ampion.tk และ MonteSmart สู่การเปลี่ยนชื่อเป็น BirdOne ซึ่งชื่อนี้ก็มีที่มาจากตัววิงโก้เองด้วย และต่อยอดมาเป็นจุดกำเนิดของ TCFOC ในปัจจุบัน ซึ่งเป็นเส้นทางประวัติศาสตร์ที่ยาวนานถึง 3 ปี
+
+ในเวลาที่ผมเหน็ดเหนื่อยจากการนำเสนอในคอร์ส MonteSmart หรือเครียดกับปัญหาต่าง ๆ แค่ได้ยินเสียงร้องเล็ก ๆ ของวิงโก้ มันก็เหมือนการปลุกพลังใจให้ลุกขึ้นสู้ต่อ ตัวเขาเองอาจจะไม่รู้ตัวเลยว่า เขากำลังเป็นแรงบันดาลใจ เป็นสิ่งที่ทำให้ผมและพวกเรานั้น ก้าวเดินต่อไป
+
+
+
+ทุกคนในที่นี้คงจะรู้จักเมืองจำลอง “ดุสิตธานี” ของพระบาทสมเด็จพระมงกุฎเกล้าเจ้าอยู่หัว รัชกาลที่ 6 ใช่ไหมครับ เมืองจำลองนี้เป็นเมืองที่วางรากฐานของประชาธิปไตยในประเทศสยาม หรือประเทศไทยในปัจจุบัน ผ่านการทดลองกับเมืองจำลองของพระองค์ และแม้ว่าในช่วงเวลาต่อมา ประเทศสยามเปลี่ยนมาใช้ระบอบประชาธิปไตยโดยมีพระมหากษัตริย์เป็นประมุข หรือ Constitutional Monarchy ในปี พ.ศ. 2475 ซึ่งในช่วงเวลานั้น รัชกาลที่ 6 ทรงได้สวรรคตไปหลายปีแล้ว แต่ก็ไม่สามารถที่จะปฏิเสธได้ว่ารัชกาลที่ 6 นั้น ทรงเป็นแรงผลักดันอันสำคัญต่อการเกิดระบอบประชาธิปไตยในประเทศไทย ดังที่เห็นในปัจจุบัน
+
+เช่นเดียวกัน แม้งาน Thailand Computer Festival เกิดการวางแผนขึ้นจริงหลังจากวิงโก้จากไป แต่เราปฏิเสธไม่ได้เลยว่า วิงโก้คือแรงบันดาลใจจากจุดแรกเริ่ม
+เขาคือประกายไฟดวงเล็กๆ ที่ทำให้เราจุดแสงสว่างอันยิ่งใหญ่ขึ้นมา
+
+(หยุด 4 วินาที)
+
+นอกจากนี้ ยังมีอยู่ช่วงเวลาหนึ่งในยุคสมัย BirdOne ที่เราได้ยกให้วิงโก้ขึ้นมาเป็นผู้นำหลัก หรือ CEO ข องกลุ่ม แม้ว่าเขาจะเป็นนก ซึ่งสะท้อนให้เห็นถึงแรงผลักดัน ที่นกตัวเล็กๆ ตัวหนึ่ง สามารถมีต่อกลุ่มของพวกเราได้ และแรงผลักดันนี้ จะคงอยู่ต่อจนถึงปัจจุบัน และอนาคต
+
+(หยุด 3 วินาที)
+
+และสิ่งที่ทำให้วิงโก้พิเศษที่สุด… ไม่ใช่เพียงเพราะเขาเป็นแรงบันดาลใจให้เกิดสิ่งใหญ่ ๆ อย่าง TCF ขึ้นมาเท่านั้น แต่เป็นเพราะเขาทำให้พวกเราได้เก็บเกี่ยวความทรงจำที่สวยงามร่วมกัน 
+
+ทุกๆ วันกับวิงโก้เป็นเรื่องราวที่มีสีสัน บางครั้งเป็นเรื่องเล็กๆ ที่เราอาจมองข้ามไป แต่เมื่อมองย้อนกลับมา กลับรู้สึกว่ามันมีค่ามากเหลือเกิน เขาทำให้บ้านไม่เคยเงียบ เขาทำให้ทุกวันเริ่มต้นด้วยรอยยิ้ม และจบลงด้วยรอยยิ้ม
+
+
+
+ผมจำได้ดีว่าเวลาที่มีใครมาหาที่บ้าน วิงโก้มักจะเป็น “เจ้าบ้าน” ที่ออกมาต้อนรับทันที
+เขาจะส่งเสียงร้องเหมือนกำลังทักทาย หรือกำลังไล่ก็ไม่รู้ (ขำ) และเขาทำให้ทุกคนที่เจอเขาครั้งแรกก็รู้สึกอบอุ่นและเป็นกันเอง
+
+นอกจากนี้ การใช้ชีวิตร่วมกับวิงโก้ยังเป็นสิ่งที่สอนเรา สอนให้เราเห็นคุณค่าของการใช้ชีวิตในปัจจุบัน
+เขาต่างจากมนุษย์อย่างพวกเรา เพราะว่าเขาไม่ได้แบกความกังวลไว้ ไม่ได้คิดถึงวันพรุ่งนี้หรืออนาคตอันห่างไกล แต่เขากลับสนุกกับทุกนาทีที่มีอยู่ตรงหน้า… และเมื่อผมมองย้อนกลับไป ผมรู้สึกว่า ช่วงเวลาที่ได้ใช้กับวิงโก้นั้น คือช่วงเวลาที่ล้ำค่าที่สุดอันหนึ่งเลยก็ว่าได้
+แม้วิงโก้จะจากไปแล้ว แต่ความทรงจำเหล่านั้นยังคงส่องสว่างอยู่ในใจ
+เพราะสิ่งที่เขาทิ้งไว้ ไม่ใช่แค่ความว่างเปล่า แต่คือความทรงจำที่งดงามที่สุด ที่จะอยู่ในใจของพวกเรา
+
+(หยุด 5 วินาที)
+
+ในเช้ามืดของวันที่ 24 สิงหาคม 2566 เมื่อสองปีที่แล้ว ผมตื่นขึ้นมาเวลาตีสี่ครึ่งกับเสียงดัง “ตุ้บ”
+ผมมองไปก็เห็นวิงโก้นอนกองอยู่บนพื้น
+แล้วผมก็พบว่า… วิงโก้นั้นเสียชีวิตจากอาการหัวใจวาย
+เช้าวันนั้น เราได้ฝังศพของวิงโก้ และบอกลาเขาไป
+เรื่องราวนี้สะท้อนให้เห็นถึงความจริงที่อาจเจ็บปวด นั่นคือ ทุกสิ่งย่อมต้องมีจุดจบ
+
+แม้ในวันนี้ วิงโก้จะไม่ได้อยู่กับพวกเราแล้ว แต่สิ่งที่เขาทิ้งไว้ คือความทรงจำ แรงผลักดัน และความรัก ความผูกพัน ที่จะยังคงอยู่กับพวกเราตลอดไป
+
+ขอขอบคุณทุกท่านจากใจจริงอีกครั้งหนึ่ง ที่มาร่วมงานรำลึกถึงวิงโก้ในวันนี้
+
+ขอพระเจ้าอวยพระพรทุกคนครับ
+                      </div>
+                    </div>
+                  </details>
                 </div>
+                <br>
               </div>
-              <div class="col-6">
+
+              <div class="col-4">
                 <div class="card stack">
                   <h3>A tiny timeline</h3>
                   <ul class="timeline">
                     <li class="t-item">
-                      <strong>Before</strong> — Wingo and Phoenix share a perch, two colors in one song.
-                      <div class="small muted">A daily rhythm of seed, water, and watchful eyes.</div>
+                      <strong>Everyday life</strong> — Wingo and Phoenix share a perch and a song; desks become playgrounds.
+                      <div class="small muted">Online classes feature surprise duets in the mic.</div>
                     </li>
                     <li class="t-item">
-                      <strong>Farewell</strong> — Wingo takes flight we cannot follow.
-                      <div class="small muted">We learn that love doesn’t stop; it changes shape.</div>
+                      <strong>BirdOne era</strong> — Ideas bloom: Ampion Park, Ampion.tk, MonteSmart → <em>BirdOne</em> (named for Wingo).
+                      <div class="small muted">The seed of TCFOC begins to form.</div>
                     </li>
                     <li class="t-item">
-                      <strong>One Year</strong> — We speak his name softer but more often.
-                      <div class="small muted">Stories turn into lanterns we pass around.</div>
+                      <strong>Farewell</strong> — Aug 24, 2023: Wingo passes from heart failure.
+                      <div class="small muted">We bury him and keep the light he lit.</div>
                     </li>
                     <li class="t-item">
-                      <strong>Two Years</strong> — This page.
-                      <div class="small muted">In gentle light, so the memory stays warm.</div>
+                      <strong>TCF (Jan)</strong> — The first Thailand Computer Festival launches, with Wingo’s spirit in the background.
+                      <div class="small muted">A small friend behind a big day.</div>
+                    </li>
+                    <li class="t-item">
+                      <strong>Two years on</strong> — We say his name softly, and often.
+                      <div class="small muted">This page is our lantern.</div>
                     </li>
                   </ul>
-                  <div class="small muted">If you knew Wingo, add a note on the <a href="#memories">Memory Wall</a>.</div>
+
+                  <div class="small muted">
+                    Want to add your own note or photo? Visit <a href="#memories">Memories & Gallery</a>.
+                  </div>
                 </div>
               </div>
             </div>
@@ -343,13 +576,19 @@
       </div>
     </section>
 
-    <!-- MEMORIES -->
-    <section class="page" id="memories" data-title="Memory Wall">
+    <!-- MEMORIES & GALLERY (combined) -->
+    <section class="page" id="memories" data-title="Memories & Gallery">
       <div class="grid">
+        <div class="col-12">
+          <div class="card stack">
+            <h2>Memories & Gallery</h2>
+            <p class="muted">Leave a gentle message and add warm photos or drawings. Saved privately in your browser.</p>
+          </div>
+        </div>
+
         <div class="col-6">
           <div class="card stack-lg">
-            <h2>Memory Wall</h2>
-            <p class="muted">Leave a short note. It stays in your browser (local to you), gentle and private.</p>
+            <h3>Write a memory</h3>
             <form id="memForm" class="memory-input" autocomplete="off">
               <input type="text" id="memName" placeholder="Your name (optional)" maxlength="48" />
               <textarea id="memText" rows="5" placeholder="Write a gentle message for Wingo…" maxlength="600" required></textarea>
@@ -358,28 +597,16 @@
                 <button type="button" id="clearMem" class="ghost" title="Clears memories saved in this browser only">Clear All (this browser)</button>
               </div>
             </form>
+            <div class="stack" id="memList"></div>
           </div>
         </div>
+
         <div class="col-6">
           <div class="card stack-lg">
-            <h3>Messages</h3>
-            <div id="memList" class="stack"></div>
-            <div class="small muted">Tip: you can copy memories elsewhere to share with friends & family.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- GALLERY -->
-    <section class="page" id="gallery" data-title="Gallery">
-      <div class="grid">
-        <div class="col-12">
-          <div class="card stack-lg">
-            <h2>Soft Gallery</h2>
-            <p class="muted">Add warm photos or drawings (stored only in your browser).</p>
+            <h3>Add photos</h3>
             <div class="row">
               <input type="file" id="fileInput" accept="image/*" multiple />
-              <button id="clearPhotos" class="ghost">Clear Photos (this browser)</button>
+              <button id="clearPhotos" class="ghost" title="Clears photos saved in this browser only">Clear Photos (this browser)</button>
             </div>
             <div id="galleryGrid" class="gallery" style="margin-top: 12px;"></div>
           </div>
@@ -412,7 +639,7 @@
   </main>
 
   <footer class="site">
-    <div class="center small">© 2025 Online Wingo Memorial, Newhouse</div>
+    <div class="center small">© 2025 Online Wingo Memorial</div>
   </footer>
 
   <script>
