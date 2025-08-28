@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>For Wingo — A Gentle Memorial</title>
+  <meta name="description" content="A heartfelt, single-file memorial for Wingo and a tribute to the impact of birds on our world." />
+
+  <style>
+    :root{
+      /* muted, warm tones (not too black) */
+      --bg: #f6f3ec;         /* warm paper */
+      --bg-soft: #faf8f4;    /* slightly lighter */
+      --card: #ffffff;
+      --ink: #2b2b2b;        /* not pure black */
+      --muted: #6f6a5c;      /* warm gray */
+      --accent: #8c6700;     /* accent */
+      --accent-2: #c7a463;   /* soft highlight */
+      --ring: rgba(140,103,0,0.25);
+      --shadow: 0 10px 30px rgba(0,0,0,0.06);
+      --radius: 14px;
+      --radius-sm: 10px;
+      --space: clamp(16px, 2.5vw, 28px);
+      --maxw: 1000px;
+      --transition: 220ms ease;
+    }
+
+    html, body {
+      height: 100%;
+      background:
+        radial-gradient(1200px 600px at 20% -10%, #fff9f0 0%, transparent 60%),
+        radial-gradient(800px 400px at 120% 10%, #fff8ee 0%, transparent 55%),
+        var(--bg);
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      line-height: 1.55;
+      letter-spacing: 0.2px;
+      margin: 0;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    header.site {
+      position: sticky; top: 0; z-index:  5;
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      background: color-mix(in oklab, var(--bg) 94%, white);
+    }
+    .nav {
+      display: flex; gap: 10px; align-items: center; justify-content: space-between;
+      max-width: var(--maxw); margin: 0 auto; padding: 10px var(--space);
+    }
+    .brand {
+      display: flex; align-items: center; gap: 10px; font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+    .feather {
+      width: 28px; height: 28px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+    .tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tabs a {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(0,0,0,0.06);
+      background: var(--card); color: var(--ink);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      transition: transform var(--transition), border-color var(--transition);
+    }
+    .tabs a[aria-current="page"] {
+      border-color: var(--accent);
+      outline: 2px solid var(--ring);
+    }
+    .tabs a:hover { transform: translateY(-1px); }
+
+    main { max-width: var(--maxw); margin: 0 auto; padding: calc(var(--space) - 4px) var(--space) var(--space); }
+
+    /* “Pages” */
+    section.page { display: none; animation: fade 380ms ease; }
+    section.page.active { display: block; }
+    @keyframes fade { from { opacity: 0; transform: translateY(4px);} to { opacity: 1; transform: none; } }
+
+    .hero {
+      padding: clamp(22px, 5vw, 44px);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.85)),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="%23c7a463"/><stop offset="1" stop-color="%23f6f3ec"/></linearGradient></defs><path d="M40 180 C 140 120, 260 120, 360 180 S 580 240, 700 170" fill="none" stroke="url(%23g)" stroke-opacity=".25" stroke-width="18" stroke-linecap="round"/></svg>');
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .hero h1 {
+      margin: 0 0 6px; font-size: clamp(28px, 4.5vw, 44px); line-height: 1.15;
+      letter-spacing: 0.3px;
+    }
+    .kicker { color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: 12px; letter-spacing: 1.5px; }
+    .lede { color: var(--muted); font-size: clamp(16px, 2.3vw, 18px); max-width: 60ch; }
+
+    .grid { display: grid; gap: 14px; grid-template-columns: repeat(12, 1fr); }
+    .col-12 { grid-column: span 12; }
+    .col-6 { grid-column: span 6; }
+    .col-4 { grid-column: span 4; }
+    @media (max-width: 860px){ .col-6, .col-4 { grid-column: span 12; } }
+
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(16px, 2.2vw, 22px);
+    }
+    .card h3 { margin: 0 0 8px; }
+    .chip {
+      display: inline-block; font-size: 12px; color: var(--muted);
+      padding: 4px 10px; border-radius: 999px; border: 1px dashed rgba(0,0,0,0.12);
+      background: var(--bg-soft);
+    }
+    .callout {
+      border-left: 4px solid var(--accent);
+      background: linear-gradient(180deg, #fff, var(--bg-soft));
+      padding: 14px 16px; border-radius: var(--radius-sm);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.04) inset;
+    }
+    .list { display: grid; gap: 10px; }
+    .list li { margin-left: 1.1em; }
+
+    .timeline { position: relative; padding-left: 26px; }
+    .timeline::before{
+      content:""; position:absolute; left:10px; top:0; bottom:0; width:2px; background: linear-gradient(to bottom, var(--accent), transparent);
+      border-radius: 2px;
+    }
+    .t-item{ position: relative; margin: 0 0 18px 0; padding-left: 4px; }
+    .t-item::marker { content: none; }
+    .t-item::before{
+      content:""; position: absolute; left:-21px; top:4px; width:12px; height:12px; border-radius:50%;
+      background: var(--card); border: 2px solid var(--accent);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+    .small { color: var(--muted); font-size: 13px; }
+
+    .gallery { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+    .thumb {
+      aspect-ratio: 4/3; width: 100%; background: var(--bg-soft);
+      border: 1px solid rgba(0,0,0,0.06); border-radius: 10px; overflow: hidden;
+      display: grid; place-items: center;
+    }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .memory-input { display: grid; gap: 10px; }
+    textarea, input[type="text"] {
+      width: 100%; padding: 10px 12px; border-radius: 10px;
+      border: 1px solid rgba(0,0,0,0.12); background: #fff;
+      font: inherit; color: var(--ink);
+    }
+    textarea:focus, input:focus { outline: 3px solid var(--ring); border-color: var(--accent); }
+    button {
+      cursor: pointer; border: 1px solid var(--accent); color: #fff; background: var(--accent);
+      border-radius: 999px; padding: 10px 16px; font-weight: 600;
+      box-shadow: 0 8px 18px rgba(140,103,0,0.16);
+      transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+    }
+    button.ghost {
+      background: var(--card); color: var(--accent); border-color: var(--accent);
+      box-shadow: none;
+    }
+    button:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(140,103,0,0.2); }
+    button:active { transform: translateY(0); opacity: 0.9; }
+
+    .mem { padding: 12px 14px; border: 1px solid rgba(0,0,0,0.06); border-radius: 12px; background: var(--bg-soft); }
+    .mem .by { color: var(--muted); font-size: 12px; margin-top: 6px; }
+
+    footer.site {
+      margin: 40px auto; max-width: var(--maxw);
+      color: var(--muted); font-size: 13px; padding: 0 var(--space) var(--space);
+    }
+
+    /* utility */
+    .stack { display: grid; gap: 12px; }
+    .stack-lg { display: grid; gap: 18px; }
+    .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .center { text-align: center; }
+    .right { text-align: right; }
+    .muted { color: var(--muted); }
+    .wrap { white-space: pre-wrap; }
+  </style>
+</head>
+
+<body>
+  <header class="site" role="banner">
+    <nav class="nav" aria-label="Primary">
+      <div class="brand" aria-label="Wingo Memorial">
+        <!-- tiny inline feather -->
+        <svg class="feather" viewBox="0 0 48 48" aria-hidden="true">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#c7a463"/>
+              <stop offset="1" stop-color="#8c6700"/>
+            </linearGradient>
+          </defs>
+          <path d="M40 12c-8-8-22-7-29 0-6 6-7 16-2 21 5 5 15 4 21-2l2-2-6-1 7-6 5-5 2-5z"
+                fill="url(#g1)" opacity=".9"/>
+          <path d="M13 33c5-2 10-6 14-10" stroke="#8c6700" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+        <span>For Wingo</span>
+      </div>
+      <div class="tabs" id="tabs">
+        <a href="#home">Home</a>
+        <a href="#impact">Why Birds Matter</a>
+        <a href="#wingo">Wingo’s Story</a>
+        <a href="#memories">Memory Wall</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#act">Honor & Actions</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="app">
+    <!-- HOME -->
+    <section class="page" id="home" data-title="Home">
+      <div class="hero stack-lg">
+        <div class="kicker">Two Years On</div>
+        <h1>For Wingo, whose small wings lifted big hearts.</h1>
+        <p class="lede">
+          Today we remember a white little bird named <strong>Wingo</strong>—gentle, bright, and braver than his size.
+          He once shared a home with <em>Phoenix</em>, a green–yellow friend, and he shared his warmth with us all.
+          This space is a letter to him, and a reminder of how birds—of every color and call—quietly keep our world alive.
+        </p>
+        <div class="row">
+          <a class="chip" href="#wingo">Read Wingo’s story</a>
+          <a class="chip" href="#impact">See birds’ impact</a>
+          <a class="chip" href="#memories">Leave a memory</a>
+        </div>
+      </div>
+
+      <div class="grid" style="margin-top: 16px;">
+        <div class="col-6">
+          <div class="card stack">
+            <h3>Why this matters</h3>
+            <p class="muted">
+              Birds stitch ecosystems together: they move seeds, pollinate flowers, balance insect populations,
+              and even signal the health of places we call home. When one little life touches ours, all this science
+              turns into something personal.
+            </p>
+            <div class="callout">
+              “If you listen closely, the world is full of wings.”
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card stack">
+            <h3>How to use this page</h3>
+            <ul class="list">
+              <li>Use the tabs above to move between sections—everything lives in this one file.</li>
+              <li>Share a short note on the <a href="#memories">Memory Wall</a> (saved in your browser).</li>
+              <li>Add gentle photos to the <a href="#gallery">Gallery</a>.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPACT -->
+    <section class="page" id="impact" data-title="Why Birds Matter">
+      <div class="grid">
+        <div class="col-12">
+          <div class="card stack-lg">
+            <h2>The Quiet Work of Wings</h2>
+            <p class="muted">Six ways birds keep life humming—visible if we pause long enough to see.</p>
+            <div class="grid">
+              <div class="col-4"><div class="card"><h3>🌱 Seed Couriers</h3><p>From forests to pocket parks, birds carry seeds across distances, re-planting green after storms and seasons.</p></div></div>
+              <div class="col-4"><div class="card"><h3>🌸 Pollination</h3><p>Some birds sip nectar and dust the world in pollen—quiet matchmakers of color and fruit.</p></div></div>
+              <div class="col-4"><div class="card"><h3>🦟 Natural Balance</h3><p>Insect-eaters keep pests in check, protecting crops, trees, and the little gardens outside our windows.</p></div></div>
+              <div class="col-4"><div class="card"><h3>🌍 Health Signals</h3><p>Where birds thrive, places are usually well. Their songs are early indicators of change—for better or worse.</p></div></div>
+              <div class="col-4"><div class="card"><h3>🎶 Culture & Joy</h3><p>Birds are metaphors, music, and art. They teach us to notice mornings—and to greet them.</p></div></div>
+              <div class="col-4"><div class="card"><h3>🧭 Human Well-being</h3><p>Watching birds reduces stress and lifts mood. A minute spent with wings can soften a heavy day.</p></div></div>
+            </div>
+            <div class="callout">
+              The world is better with birds, and we are better humans when we love them like Wingo taught us to.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WINGO -->
+    <section class="page" id="wingo" data-title="Wingo’s Story">
+      <div class="grid">
+        <div class="col-12">
+          <div class="card stack-lg">
+            <h2>Wingo</h2>
+            <p class="muted">A simple bird. A bright presence. Two years since he took his last little bow.</p>
+
+            <div class="grid">
+              <div class="col-6">
+                <div class="stack">
+                  <p>
+                    Wingo was small and white—like a hand-drawn cloud with a heartbeat. He shared a home with a
+                    green-yellow friend named Phoenix. He wasn’t loud, but he was clear. He wasn’t grand, but he was real.
+                    He was the kind of friend who made ordinary afternoons feel like occasions.
+                  </p>
+                  <p>
+                    Loss, when it’s quiet, can linger in corners: an empty perch, a dish on a shelf, the way light
+                    falls on a cage. We name that light <em>memory</em>. We keep it burning. We keep flying with it.
+                  </p>
+
+                  <div class="callout">
+                    “Some wings are so small you only notice them when your heart feels bigger.”
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="card stack">
+                  <h3>A tiny timeline</h3>
+                  <ul class="timeline">
+                    <li class="t-item">
+                      <strong>Before</strong> — Wingo and Phoenix share a perch, two colors in one song.
+                      <div class="small muted">A daily rhythm of seed, water, and watchful eyes.</div>
+                    </li>
+                    <li class="t-item">
+                      <strong>Farewell</strong> — Wingo takes flight we cannot follow.
+                      <div class="small muted">We learn that love doesn’t stop; it changes shape.</div>
+                    </li>
+                    <li class="t-item">
+                      <strong>One Year</strong> — We speak his name softer but more often.
+                      <div class="small muted">Stories turn into lanterns we pass around.</div>
+                    </li>
+                    <li class="t-item">
+                      <strong>Two Years</strong> — This page.
+                      <div class="small muted">In gentle light, so the memory stays warm.</div>
+                    </li>
+                  </ul>
+                  <div class="small muted">If you knew Wingo, add a note on the <a href="#memories">Memory Wall</a>.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row right">
+              <a href="#memories"><button class="ghost">Write a memory</button></a>
+              <a href="#act"><button>Honor birds today</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEMORIES -->
+    <section class="page" id="memories" data-title="Memory Wall">
+      <div class="grid">
+        <div class="col-6">
+          <div class="card stack-lg">
+            <h2>Memory Wall</h2>
+            <p class="muted">Leave a short note. It stays in your browser (local to you), gentle and private.</p>
+            <form id="memForm" class="memory-input" autocomplete="off">
+              <input type="text" id="memName" placeholder="Your name (optional)" maxlength="48" />
+              <textarea id="memText" rows="5" placeholder="Write a gentle message for Wingo…" maxlength="600" required></textarea>
+              <div class="row">
+                <button type="submit">Post Memory</button>
+                <button type="button" id="clearMem" class="ghost" title="Clears memories saved in this browser only">Clear All (this browser)</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card stack-lg">
+            <h3>Messages</h3>
+            <div id="memList" class="stack"></div>
+            <div class="small muted">Tip: you can copy memories elsewhere to share with friends & family.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="page" id="gallery" data-title="Gallery">
+      <div class="grid">
+        <div class="col-12">
+          <div class="card stack-lg">
+            <h2>Soft Gallery</h2>
+            <p class="muted">Add warm photos or drawings (stored only in your browser).</p>
+            <div class="row">
+              <input type="file" id="fileInput" accept="image/*" multiple />
+              <button id="clearPhotos" class="ghost">Clear Photos (this browser)</button>
+            </div>
+            <div id="galleryGrid" class="gallery" style="margin-top: 12px;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTIONS -->
+    <section class="page" id="act" data-title="Honor & Actions">
+      <div class="grid">
+        <div class="col-12">
+          <div class="card stack-lg">
+            <h2>Honor Wingo. Help Birds.</h2>
+            <div class="grid">
+              <div class="col-6"><div class="card"><h3>✨ Make a tiny habitat</h3><p>Offer fresh water, a shallow dish with stones, and a few native plants. A balcony or window is enough to start.</p></div></div>
+              <div class="col-6"><div class="card"><h3>🧹 Keep spaces safe</h3><p>Reduce window strikes with subtle decals, keep strings/thread out of reach, and tidy fishing line near canals.</p></div></div>
+              <div class="col-6"><div class="card"><h3>📒 Notice & record</h3><p>Jot sightings in a notebook or a citizen-science app. Small data points add up to real protection.</p></div></div>
+              <div class="col-6"><div class="card"><h3>🤝 Share the story</h3><p>Tell someone about Wingo. Love becomes conservation when it’s told, kindly and often.</p></div></div>
+            </div>
+            <div class="callout">
+              Wingo’s gift wasn’t just presence. It was the nudge to care for all the wings we’ll never meet.
+            </div>
+            <div class="row right">
+              <a href="#home"><button class="ghost">Back Home</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site">
+    <div class="center small">© 2025 Online Wingo Memorial, Newhouse</div>
+  </footer>
+
+  <script>
+    // Simple hash router for “multi-page” in one HTML file
+    (function(){
+      const pages = Array.from(document.querySelectorAll('section.page'));
+      const tabs = Array.from(document.querySelectorAll('.tabs a'));
+
+      function setActive(hash){
+        if(!hash) { hash = '#home'; location.replace(hash); }
+        pages.forEach(p => p.classList.toggle('active', '#'+p.id === hash));
+        tabs.forEach(a => {
+          const on = a.getAttribute('href') === hash;
+          a.setAttribute('aria-current', on ? 'page' : 'false');
+        });
+        const sec = pages.find(p => '#'+p.id === hash);
+        const label = sec ? sec.getAttribute('data-title') : 'Home';
+        document.title = (label ? (label + ' • ') : '') + 'For Wingo — A Gentle Memorial';
+      }
+      window.addEventListener('hashchange', () => setActive(location.hash));
+      setActive(location.hash);
+
+      // Memory Wall (localStorage)
+      const KEY_MEM = 'wingo_memories_v1';
+      const memForm = document.getElementById('memForm');
+      const memList = document.getElementById('memList');
+      const memName = document.getElementById('memName');
+      const memText = document.getElementById('memText');
+      const btnClearMem = document.getElementById('clearMem');
+
+      function loadMemories(){
+        try { return JSON.parse(localStorage.getItem(KEY_MEM)) || []; }
+        catch { return []; }
+      }
+      function saveMemories(arr){
+        localStorage.setItem(KEY_MEM, JSON.stringify(arr));
+      }
+      function renderMemories(){
+        const data = loadMemories();
+        memList.innerHTML = '';
+        if(data.length === 0){
+          const empty = document.createElement('div');
+          empty.className = 'muted small';
+          empty.textContent = 'No messages yet. Be the first to write something kind.';
+          memList.appendChild(empty);
+          return;
+        }
+        data.forEach(m => {
+          const card = document.createElement('div');
+          card.className = 'mem';
+          const body = document.createElement('div');
+          body.className = 'wrap';
+          body.textContent = m.text;
+          const by = document.createElement('div');
+          by.className = 'by';
+          by.textContent = (m.name ? m.name + ' • ' : '') + new Date(m.time).toLocaleString();
+          card.appendChild(body);
+          card.appendChild(by);
+          memList.appendChild(card);
+        });
+      }
+      memForm?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = memName.value.trim();
+        const text = memText.value.trim();
+        if(!text) return;
+        const data = loadMemories();
+        data.unshift({ name, text, time: Date.now() });
+        saveMemories(data);
+        memText.value = '';
+        renderMemories();
+      });
+      btnClearMem?.addEventListener('click', () => {
+        if(confirm('Clear all memories saved in this browser?')){
+          localStorage.removeItem(KEY_MEM);
+          renderMemories();
+        }
+      });
+      // seed a gentle first note (only once)
+      if(loadMemories().length === 0){
+        saveMemories([{name:'From all of us', text:'Thank you, Wingo, for the soft lessons: be bright, be gentle, be here.', time: Date.now()}]);
+      }
+      renderMemories();
+
+      // Gallery (localStorage)
+      const KEY_PHOTOS = 'wingo_photos_v1';
+      const fileInput = document.getElementById('fileInput');
+      const clearPhotos = document.getElementById('clearPhotos');
+      const galleryGrid = document.getElementById('galleryGrid');
+
+      function loadPhotos(){
+        try { return JSON.parse(localStorage.getItem(KEY_PHOTOS)) || []; }
+        catch { return []; }
+      }
+      function savePhotos(arr){
+        localStorage.setItem(KEY_PHOTOS, JSON.stringify(arr));
+      }
+      function renderPhotos(){
+        const photos = loadPhotos();
+        galleryGrid.innerHTML = '';
+        if(photos.length === 0){
+          const ph = document.createElement('div');
+          ph.className = 'thumb muted';
+          ph.textContent = 'No images yet — add some gentle light.';
+          galleryGrid.appendChild(ph);
+          return;
+        }
+        photos.forEach(src => {
+          const wrap = document.createElement('div');
+          wrap.className = 'thumb';
+          const img = document.createElement('img');
+          img.loading = 'lazy';
+          img.src = src;
+          wrap.appendChild(img);
+          galleryGrid.appendChild(wrap);
+        });
+      }
+      async function readFilesAsDataURLs(files){
+        const arr = [];
+        for(const f of files){
+          if(!f.type.startsWith('image/')) continue;
+          const dataUrl = await new Promise((res, rej) => {
+            const r = new FileReader();
+            r.onload = () => res(r.result);
+            r.onerror = rej;
+            r.readAsDataURL(f);
+          });
+          arr.push(dataUrl);
+        }
+        return arr;
+      }
+      fileInput?.addEventListener('change', async (e) => {
+        const files = e.target.files || [];
+        if(!files.length) return;
+        const existing = loadPhotos();
+        const added = await readFilesAsDataURLs(files);
+        savePhotos(existing.concat(added));
+        renderPhotos();
+        fileInput.value = '';
+      });
+      clearPhotos?.addEventListener('click', () => {
+        if(confirm('Clear gallery images saved in this browser?')){
+          localStorage.removeItem(KEY_PHOTOS);
+          renderPhotos();
+        }
+      });
+      renderPhotos();
+
+      // Keyboard nav for tabs (accessibility nicety)
+      document.getElementById('tabs')?.addEventListener('keydown', (e) => {
+        const order = tabs;
+        const i = order.indexOf(document.activeElement);
+        if(i < 0) return;
+        if(e.key === 'ArrowRight'){ e.preventDefault(); order[(i+1)%order.length].focus(); }
+        if(e.key === 'ArrowLeft'){ e.preventDefault(); order[(i-1+order.length)%order.length].focus(); }
+      });
+    })();
+  </script>
+</body>
+</html>
